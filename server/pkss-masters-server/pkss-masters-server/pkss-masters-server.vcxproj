@@ -19,7 +19,13 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\ConnectionManager.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\PKSSServer.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\ConnectionManager.h" />
+    <ClInclude Include="src\PKSSServer.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{45D06B2E-B812-4B01-933A-5D7C9E4A76EA}</ProjectGuid>
