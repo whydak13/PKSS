@@ -32,15 +32,22 @@ void myCrashHandler(int sig) {
 	LOG(INFO) << "Stopping server application";
 	// FOLLOWING LINE IS ABSOLUTELY NEEDED AT THE END IN ORDER TO ABORT APPLICATION
 	el::Helpers::crashAbort(sig);
-	exit(0);
+}
+
+void sigabrt_handler(int sig) {
+	exit(1);
 }
 
 int main(int argc, char ** argv) {
     //PKSSServer server;
     //server.runServer();
+
+	//Handling logger
 	el::Configurations conf("../pkss-masters-server/logs/logger.conf");
 	el::Loggers::reconfigureAllLoggers(conf);
 	el::Helpers::setCrashHandler(myCrashHandler);
+	signal(SIGABRT, sigabrt_handler);
+
     ConnectionManager manager(1234);
     while (true) {
         manager.readData();
