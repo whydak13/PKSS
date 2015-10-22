@@ -25,6 +25,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ConnectionManager.h" />
+    <ClInclude Include="src\easylogging++.h" />
     <ClInclude Include="src\PKSSServer.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

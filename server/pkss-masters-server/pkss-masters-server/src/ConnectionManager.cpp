@@ -1,4 +1,5 @@
 #include "ConnectionManager.h"
+#include "easylogging++.h"
 #include <algorithm>
 #include <iostream>
 #include <thread>
@@ -30,6 +31,7 @@ void ConnectionManager::poolConnection() {
     switch (socketListener.accept(*newSocket)) {
     case sf::TcpListener::Status::Done: {
         ConnectedNode node { "", newSocket };
+		LOG(TRACE) << "Established connection with " << newSocket->getRemoteAddress();
         newSocket->setBlocking(false);
         connections.push_back(node);
         newSocket = new sf::TcpSocket;
@@ -78,6 +80,7 @@ rapidjson::Document ConnectionManager::readData() {
                 ++node;
                 break;
             case sf::TcpSocket::Status::Disconnected:
+				LOG(TRACE) << "Disconnected from " << node->socket->getRemoteAddress();
                 delete node->socket;
                 node = connections.erase(node);
                 break;
@@ -89,7 +92,7 @@ rapidjson::Document ConnectionManager::readData() {
                 break;
             }
             if (dataReceived) {
-                std::cout << receivedData << std::endl;
+				LOG(INFO) << receivedData;
                 return rapidjson::Document();
             }
         }

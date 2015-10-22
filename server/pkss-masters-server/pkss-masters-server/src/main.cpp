@@ -1,6 +1,9 @@
 #include <iostream>
 #include <string>
 #include "PKSSServer.h"
+#include "easylogging++.h"
+
+INITIALIZE_EASYLOGGINGPP
 
 //void jsonExample(void) {
 //    const char * json = "{\"val1\":\"str\",\"val2\":3}";
@@ -24,9 +27,20 @@
 //    std::cout << buffer.GetString() << std::endl;
 //}
 
+
+void myCrashHandler(int sig) {
+	LOG(INFO) << "Stopping server application";
+	// FOLLOWING LINE IS ABSOLUTELY NEEDED AT THE END IN ORDER TO ABORT APPLICATION
+	el::Helpers::crashAbort(sig);
+	exit(0);
+}
+
 int main(int argc, char ** argv) {
     //PKSSServer server;
     //server.runServer();
+	el::Configurations conf("../pkss-masters-server/logs/logger.conf");
+	el::Loggers::reconfigureAllLoggers(conf);
+	el::Helpers::setCrashHandler(myCrashHandler);
     ConnectionManager manager(1234);
     while (true) {
         manager.readData();
