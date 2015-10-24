@@ -1,1 +1,216 @@
-[INFO ] Stopping server application
+[TRACE] Established connection with 192.168.1.111
+[INFO ] {"src": "gui", "type": "init"}{"src": "gui", "type": "data", "czas": 32}
+[INFO ] {"src": "gui", "type": "data", "czas": 32}
+[INFO ] {"src": "gui", "type": "data", "czas": 32}
+[TRACE] Disconnected from 192.168.1.111
+[TRACE] Established connection with 192.168.1.111
+[INFO ] {"src": "gui", "type": "init"}{"src": "gui", "type": "data", "czas": 32}
+[INFO ] {"src": "gui", "type": "data", "czas": 32}
+[INFO ] {"src": "gui", "type": "data", "czas": 32}
+[TRACE] Disconnected from 192.168.1.111
+[TRACE] Established connection with 192.168.1.111
+[INFO ] {"src": "wymiennik", "type": "init"}{"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[TRACE] Disconnected from 192.168.1.111
+[TRACE] Established connection with 192.168.1.111
+[INFO ] {"src": "wymiennik", "type": "init"}{"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[TRACE] Disconnected from 192.168.1.111
+[TRACE] Established connection with 192.168.1.111
+[INFO ] {"src": "wymiennik", "type": "init"}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[TRACE] Disconnected from 192.168.1.111
+[TRACE] Established connection with 192.168.1.111
+[INFO ] {"src": "wymiennik", "type": "init"}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[TRACE] Disconnected from 192.168.1.111
+[TRACE] Established connection with 192.168.1.111
+[INFO ] {"src": "wymiennik", "type": "init"}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[TRACE] Disconnected from 192.168.1.111
+[TRACE] Established connection with 192.168.1.111
+[INFO ] {"src": "wymiennik", "type": "init"}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[TRACE] Established connection with 192.168.1.111
+[INFO ] {"src": "budynek", "type": "init"}
+[INFO ] {"src": "budynek", "type": "data", "temperatura": 12.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "budynek", "type": "data", "temperatura": 12.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "budynek", "type": "data", "temperatura": 12.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "budynek", "type": "data", "temperatura": 12.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "budynek", "type": "data", "temperatura": 12.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "budynek", "type": "data", "temperatura": 12.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "budynek", "type": "data", "temperatura": 12.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "budynek", "type": "data", "temperatura": 12.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "budynek", "type": "data", "temperatura": 12.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "budynek", "type": "data", "temperatura": 12.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "budynek", "type": "data", "temperatura": 12.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "budynek", "type": "data", "temperatura": 12.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "budynek", "type": "data", "temperatura": 12.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "budynek", "type": "data", "temperatura": 12.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "budynek", "type": "data", "temperatura": 12.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "budynek", "type": "data", "temperatura": 12.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "budynek", "type": "data", "temperatura": 12.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "budynek", "type": "data", "temperatura": 12.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "budynek", "type": "data", "temperatura": 12.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "budynek", "type": "data", "temperatura": 12.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "budynek", "type": "data", "temperatura": 12.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "budynek", "type": "data", "temperatura": 12.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "budynek", "type": "data", "temperatura": 12.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "budynek", "type": "data", "temperatura": 12.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "budynek", "type": "data", "temperatura": 12.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "budynek", "type": "data", "temperatura": 12.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "budynek", "type": "data", "temperatura": 12.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "budynek", "type": "data", "temperatura": 12.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "budynek", "type": "data", "temperatura": 12.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "budynek", "type": "data", "temperatura": 12.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "budynek", "type": "data", "temperatura": 12.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "budynek", "type": "data", "temperatura": 12.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "budynek", "type": "data", "temperatura": 12.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "budynek", "type": "data", "temperatura": 12.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "budynek", "type": "data", "temperatura": 12.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "budynek", "type": "data", "temperatura": 12.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "budynek", "type": "data", "temperatura": 12.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "budynek", "type": "data", "temperatura": 12.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "budynek", "type": "data", "temperatura": 12.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "budynek", "type": "data", "temperatura": 12.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "budynek", "type": "data", "temperatura": 12.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "budynek", "type": "data", "temperatura": 12.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "budynek", "type": "data", "temperatura": 12.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "budynek", "type": "data", "temperatura": 12.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "budynek", "type": "data", "temperatura": 12.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "budynek", "type": "data", "temperatura": 12.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "budynek", "type": "data", "temperatura": 12.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "budynek", "type": "data", "temperatura": 12.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "budynek", "type": "data", "temperatura": 12.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "budynek", "type": "data", "temperatura": 12.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "budynek", "type": "data", "temperatura": 12.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "budynek", "type": "data", "temperatura": 12.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "budynek", "type": "data", "temperatura": 12.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "budynek", "type": "data", "temperatura": 12.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
+[INFO ] {"src": "budynek", "type": "data", "temperatura": 12.5}
+[INFO ] {"src": "wymiennik", "type": "data", "temperatura": 32.5}
