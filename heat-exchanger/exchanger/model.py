@@ -1,8 +1,9 @@
 import logging
+
 import numpy as np
 from scipy.integrate import odeint
+from exchanger.utils.stopwatch import Stopwatch
 
-from utils.stopwatch import Stopwatch
 
 # noinspection PyPep8Naming
 class Model(object):
@@ -30,6 +31,9 @@ class Model(object):
                       'M_CO': 1.,
                       'F_ZCO': 1.}
         return parameters
+
+    def get_parameters(self):
+        return {'T_PM': self.T_PM, 'T_ZCO': self.T_ZCO}
 
     def tick(self, T_ZM, T_PCO, time=None):
         if time is None:

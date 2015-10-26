@@ -36,4 +36,4 @@ class jsonBuilder(object):
 		return json.dumps(self.__dict)
 	
 	def print_content(self):
-		print self.__dict
+		print(self.__dict)
