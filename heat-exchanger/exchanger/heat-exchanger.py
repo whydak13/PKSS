@@ -15,11 +15,10 @@ def main():
     port = 80
     init_logger()
     exchanger = model.Model()
-    exchanger.tick(1, 1)
+    exchanger.tick(21)
     communicator = communication.Communication()
     communicator.set_model(exchanger)
     communicator.prepare_connection(host, port)
-    communicator.send_init()
-    communicator.send_data()
+    communicator.run()
 if __name__ == '__main__':
     main()

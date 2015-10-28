@@ -14,6 +14,7 @@ class Model(object):
         logging.info("Parameters map: %s.", self.params)
 
         self.tick_time = time if time is not None else 1  # seconds
+        self.current_time = 0
         logging.info("Using tick time %ss.", self.tick_time)
 
         self.T_PM = 0.
@@ -29,33 +30,47 @@ class Model(object):
                       'c_w': 1.,
                       'k_w': 1.,
                       'M_CO': 1.,
-                      'F_ZCO': 1.}
+                      'F_ZCO': 1.,
+                      'T_ZM': 2.,
+                      'T_ZCO': 3.}
         return parameters
 
-    def get_parameters(self):
+    def get_state(self):
         return {'T_PM': self.T_PM, 'T_ZCO': self.T_ZCO}
 
-    def tick(self, T_ZM, T_PCO, time=None):
+    def update_parameters(self, parameters):
+        for k, v in parameters.items():
+            self.params[k] = v
+
+    def set_start_time(self, time):
+        self.current_time = time
+
+    def tick(self, time=None):
         if time is None:
             time = self.tick_time
 
-        logging.info('Ticking with values T_ZM=%f, T_PCO=%f for %d seconds.', T_ZM, T_PCO, time)
+        logging.info('Ticking for %d seconds.', time)
 
         sw = Stopwatch()
         sw.start()
 
         y0 = np.array([self.T_PM, self.T_ZCO])
-        t = np.array([0, time])
+        t = np.array([self.current_time, self.current_time + time])
         # t = np.linspace(0, time)  # diff is about +30% in time
 
-        Xp = odeint(Model.solve, y0, t, args=(self.prepare_matrices(T_ZM, T_PCO)))
+        Xp = odeint(Model.solve, y0, t, args=(self.prepare_matrices()))
 
         self.T_PM, self.T_ZCO = Xp[-1]
+        self.current_time += time
 
         logging.info('New state, T_PM=%f, T_ZCO=%f, took %fs', self.T_PM, self.T_ZCO, sw.time_elapsed)
         return self.T_PM, self.T_ZCO
 
-    def prepare_matrices(self, T_ZM, T_ZCO):
+    def prepare_matrices(self, T_ZM = None, T_ZCO = None):
+        if T_ZM is None:
+            T_ZM = self.params['T_ZM']
+        if T_ZCO is None:
+            T_ZCO = self.params['T_ZCO']
         c_w = self.params['c_w']
         F_ZM = self.params['F_ZM']
         c_wym = self.params['c_wym']

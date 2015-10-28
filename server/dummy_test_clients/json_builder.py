@@ -34,6 +34,13 @@ class jsonBuilder(object):
 		
 	def serialize(self):
 		return json.dumps(self.__dict)
-	
+
+	@staticmethod
+	def deserialize(string):
+		try:
+			return json.loads(string)
+		except:
+			return {}
+
 	def print_content(self):
 		print(self.__dict)
