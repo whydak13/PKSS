@@ -39,11 +39,8 @@ void sigabrt_handler(int sig) {
 }
 
 int main(int argc, char ** argv) {
-    //PKSSServer server;
-    //server.runServer();
-
 	//Handling logger
-	el::Configurations conf("../pkss-masters-server/logs/logger.conf");
+	el::Configurations conf("../../logs/logger.conf");
 	el::Loggers::reconfigureAllLoggers(conf);
 	el::Helpers::setCrashHandler(myCrashHandler);
 	signal(SIGABRT, sigabrt_handler);
