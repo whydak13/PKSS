@@ -11,23 +11,6 @@
 #include <rapidjson/writer.h>
 #include <rapidjson/stringbuffer.h>
 
-class ConnectionException : public std::exception {
-    std::string message;
-
-public:
-    ConnectionException(const std::string & message) {
-        this->message = "Connection Exception! : " + message;
-    }
-
-    const char* what() const noexcept {
-        return this->message.c_str();
-    }
-};
-
-class CEConnectFailed {
-
-};
-
 class ConnectionManager {
     enum CMConstants { BUFFER_SIZE = 10000 };
 
@@ -42,14 +25,16 @@ class ConnectionManager {
     std::list<ConnectedNode>    connections;
     sf::TcpListener             socketListener;
 
-    sf::TcpSocket *             findSocket(const std::string & nodeName);
     void                        poolConnection();
+    sf::TcpSocket::Status       sendData(sf::TcpSocket * socket, const char * data, size_t len);
+    sf::TcpSocket::Status       readData(sf::TcpSocket * socket, char * data, size_t & len);
+    std::string                 connectionInfo(const ConnectedNode & connection);
 
 public:
                                 ConnectionManager(int listenPort);
                                 ~ConnectionManager();
-    rapidjson::Document         readData();
-    void                        sendData(const std::string & nodeName, const rapidjson::Document & data);
+	std::string         		readData();
+    void                        sendData(const std::string & nodeName, const std::string & data);
 };
 
 #endif /* CONNECTIONMANAGER_H */
