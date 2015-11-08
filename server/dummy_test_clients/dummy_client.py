@@ -10,27 +10,41 @@ from json_builder import jsonBuilder
 
 ROLE = 'wymiennik'
 
-if __name__ == '__main__':
-	host = '192.168.1.111'
-	port = 1234
-	
-	json_builder = jsonBuilder(ROLE)
-	json_builder.switch_to_init_json()
-	
-	json_builder.print_content()
+TEMPERATURA = 'temperatura'
 
-	my_socket = socket.create_connection((host, port), 2)
-	my_socket.send(json_builder.serialize())
-	time.sleep(1)
-	
-	json_builder.switch_to_data_json()
-	json_builder.add_field('temperatura', 32.5)
-	
-	json_builder.print_content()
-	
-	try:
-		while(True):
-			my_socket.send(json_builder.serialize())
-			time.sleep(2)
-	except KeyboardInterrupt:
-		my_socket.shutdown(socket.SHUT_RDWR)
+if __name__ == '__main__':
+    host = "localhost"
+    port = 1234
+    RECV_BUFFER = 4096
+
+    json_builder = jsonBuilder(ROLE)
+    json_builder.switch_to_init_json()
+
+    #json_builder.print_content()
+
+    my_socket = socket.create_connection((host, port), 2)
+    my_socket.setblocking(True)
+    init_data = json_builder.serialize()
+    my_socket.send(init_data)
+    print "SENT: " + init_data
+    time.sleep(1)
+
+    json_builder.switch_to_data_json()
+    temp = 32
+    json_builder.add_field(TEMPERATURA, temp)
+
+    #json_builder.print_content()
+
+    try:
+        while(True):
+            data = my_socket.recv(RECV_BUFFER)
+            print "RECEIVED: " + data
+            time.sleep(2)
+            temp += 1
+            json_builder.add_field(TEMPERATURA, temp)
+            data_sent = json_builder.serialize()
+            my_socket.send(data_sent)
+            print "SENT: " + data_sent 
+    except KeyboardInterrupt:
+        my_socket.shutdown(socket.SHUT_RDWR)
+        my_socket.close()
