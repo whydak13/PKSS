@@ -36,9 +36,9 @@ class jsonBuilder(object):
 		return json.dumps(self.__dict)
 
 	@staticmethod
-	def deserialize(string):
+	def deserialize(bytes):
 		try:
-			return json.loads(string)
+			return json.loads(bytes.decode('utf-8'))
 		except:
 			return {}
 
