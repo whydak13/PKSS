@@ -5,6 +5,9 @@ from time import sleep
 
 
 class Communication(object):
+
+    TIME_KEY = 'trzy_miliony'
+
     def __init__(self, role=None):
         logging.info("Created communication")
         self.model = None
@@ -15,9 +18,9 @@ class Communication(object):
         self.role = role if role is not None else "wymiennik"
         self.json_builder = JsonBuilder(self.role)
 
-        self.communication_tries = 2
+        self.communication_tries = 20
 
-        self.time = 0
+        self.time = 1
 
     def __del__(self):
         if self.socket is not None:
@@ -52,8 +55,14 @@ class Communication(object):
             return
 
         self.__send_init()
+        js = self.__receive_init()
+        try:
+            self.time = js[Communication.TIME_KEY]
+        except:
+            logging.info('Using default value of time ' + str(self.time))
         while True:
-            self.__cycle()
+            # sleep(1)
+            self.__cycle0()
 
     def __cycle(self):
         self.__receive_time()
@@ -61,6 +70,14 @@ class Communication(object):
         self.__send_data()
         self.__receive_data()
         logging.info("Tick complete")
+
+    def __cycle0(self):
+        # self.time += 1
+        self.model.tick(self.time)
+        self.__send_data()
+        self.__receive_data()
+        logging.info("Tick complete")
+
 
     def __send_init(self):
         self.json_builder.switch_to_init_json(self.role)
@@ -81,8 +98,12 @@ class Communication(object):
 
         for t in range(self.communication_tries):
             try:
-                self.socket.sendall(msg)
-            except:
+                logging.info('Trying to send msg.')
+                self.socket.sendall(bytes(msg, 'utf-8'))
+                logging.debug('Msg sent.')
+                break
+            except Exception as e:
+                logging.warning('Exception caught. ' + str(e))
                 sleep(0.5)
         else:
             logging.error("Failed to send message.")
@@ -91,14 +112,27 @@ class Communication(object):
         if self.socket is None:
             logging.warning("Will not receive message, socket does not exist.")
             return None
-        return self.socket.recv(size)
+        self.socket.setblocking(True)
+        msg = self.socket.recv(size)
+        logging.debug('Received bytes ' + str(msg))
+        self.socket.setblocking(False)
+        return msg
 
     def __receive_time(self):
         js = self.json_builder.deserialize(self.__receive())
         self.time = js['time']
         logging.info("Received time value %f", self.time)
 
+    def __receive_init(self):
+        js = self.json_builder.deserialize(self.__receive())
+        logging.info('Init msg received. ' + str(js))
+        return js
+
     def __receive_data(self):
         js = self.json_builder.deserialize(self.__receive())
+        logging.debug('Received msg: ' + str(js))
         js.pop('type')
+        if Communication.TIME_KEY in js.keys():
+            self.time = js[Communication.TIME_KEY]
         self.model.update_parameters(js)
+
