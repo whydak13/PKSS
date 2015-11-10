@@ -3,6 +3,12 @@
 
 INITIALIZE_EASYLOGGINGPP
 
+#ifdef WIN32
+#define LOG_CONF_PATH   "../../../logs/logger.conf"
+#else
+#define LOG_CONF_PATH   "../../logs/logger.conf"
+#endif
+
 void myCrashHandler(int sig) {
     LOG(INFO) << "Stopping server application";
     // FOLLOWING LINE IS ABSOLUTELY NEEDED AT THE END IN ORDER TO ABORT APPLICATION
@@ -33,7 +39,7 @@ void LoggerWrapper::level(LWLoglevel level) {
 
 void LoggerWrapper::init() {
     //Handling logger
-    el::Configurations conf("../../logs/logger.conf");
+    el::Configurations conf(LOG_CONF_PATH);
     el::Loggers::reconfigureAllLoggers(conf);
     el::Helpers::setCrashHandler(myCrashHandler);
     signal(SIGABRT, sigabrt_handler);
