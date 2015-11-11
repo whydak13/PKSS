@@ -3,11 +3,13 @@ import socket
 import select
 import json
 
-CLIENT_NAMES = ['wymiennik', 'budynek']
+CLIENT_NAMES = ['wymiennik', 'dostawca', 'budynek1', 'regulator_1', 'gui']
+#CLIENT_NAMES = ['budynek1', 'regulator_1']
 TYPE = 'type'
 DATA = 'data'
 INIT = 'init'
 SRC  = 'src'
+DELTA = 'trzy_miliony'
 
 def broadcast (server_socket, connection_list, message):
     for socket in connection_list:
@@ -16,7 +18,8 @@ def broadcast (server_socket, connection_list, message):
             socket.setblocking(True)
             msg = "Global configuration for client %s" % roles_dict[socket]
             logging.debug(msg)
-            socket.send(message)
+            bytes = socket.sendall(message)
+            logging.debug(message)#("Bytes: %d of %d" %(bytes, len(message))) +
             socket.setblocking(False)
 
 def remove_socket(socket_to_remove, connection_list, roles_dict):
@@ -86,9 +89,13 @@ def process_data_json(data_json, data_sock, roles_dict, broadcast_msg):
             merge_with_global_json(data_json, broadcast_msg)
             return False
 
+def add_time(broadcast_msg, delta_value):
+    broadcast_msg[DELTA] = delta_value
+
 if __name__ == "__main__":
     
     logging.basicConfig(format = '%(levelname)s %(filename)s: %(message)s', level = logging.DEBUG)
+    delta_value = 10000
 
     CONNECTION_LIST = []
     RECV_BUFFER = 4096
@@ -153,6 +160,8 @@ if __name__ == "__main__":
             iteration += 1
             prepare_client_iteration_activity(client_iteration_activity, roles_dict)
             broadcast_msg[TYPE] = INIT
+            add_time(broadcast_msg, delta_value)
+            delta_value = delta_value + 1
             broadcast(server_socket, CONNECTION_LIST, json.dumps(broadcast_msg))
             logging.info("Initialization completed successfully")
         
@@ -161,11 +170,13 @@ if __name__ == "__main__":
             all_connected = set(roles_dict.values()) == set(CLIENT_NAMES)
             if all_connected and is_iteration_done(client_iteration_activity, roles_dict):
                 broadcast_msg[TYPE] = DATA
+                add_time(broadcast_msg, delta_value)
+                delta_value = delta_value + 1
                 broadcast(server_socket, CONNECTION_LIST, json.dumps(broadcast_msg))
                 client_iteration_activity.clear()
                 prepare_client_iteration_activity(client_iteration_activity, roles_dict)
                 broadcast_msg.clear()
-                iteration += 1
                 logging.info("Start of iteration %s" % str(iteration))
+                iteration += 1
          
     server_socket.close()
