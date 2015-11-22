@@ -1,0 +1,14 @@
+#TeXlipse project settings
+#Sat Nov 21 18:44:52 CET 2015
+markTmpDer=true
+builderNum=2
+outputDir=
+makeIndSty=
+bibrefDir=
+outputFormat=pdf
+tempDir=tmp
+mainTexFile=main.tex
+outputFile=communication-model.pdf
+langSpell=pl
+markDer=true
+srcDir=src
