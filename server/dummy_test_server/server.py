@@ -3,8 +3,8 @@ import socket
 import select
 import json
 
-CLIENT_NAMES = ['wymiennik', 'dostawca', 'budynek1', 'regulator_1', 'gui']
-#CLIENT_NAMES = ['budynek1', 'regulator_1']
+#CLIENT_NAMES = ['wymiennik', 'dostawca', 'budynek1', 'regulator_1', 'gui']
+CLIENT_NAMES = ['budynek', 'wymiennik']
 TYPE = 'type'
 DATA = 'data'
 INIT = 'init'
