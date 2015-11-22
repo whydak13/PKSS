@@ -1,6 +1,7 @@
 import logging
 
 from exchanger import model, communication
+from time import sleep
 
 logging_level = logging.DEBUG
 
@@ -16,10 +17,11 @@ def main():
     port = 1234
     init_logger()
     exchanger = model.Model()
-    # exchanger.tick(21)
+    exchanger.tick(21)
     communicator = communication.Communication()
     communicator.set_model(exchanger)
     communicator.prepare_connection(host, port)
     communicator.run()
+
 if __name__ == '__main__':
     main()

@@ -1,5 +1,4 @@
 import logging
-
 import numpy as np
 from scipy.integrate import odeint
 from exchanger.utils.stopwatch import Stopwatch
@@ -7,7 +6,7 @@ from exchanger.utils.stopwatch import Stopwatch
 
 # noinspection PyPep8Naming
 class Model(object):
-    def __init__(self, parameters=None, time = None):
+    def __init__(self, parameters=None, time=None):
         logging.info("Created model")
 
         self.params = parameters if parameters is not None else Model.init_params()
@@ -23,16 +22,19 @@ class Model(object):
 
     @staticmethod
     def init_params():
-        parameters = {'M_M': 1.,
-                      'c_wym': 1.,
-                      'F_ZM': 1.,
-                      'g_w': 1.,
-                      'c_w': 1.,
-                      'k_w': 1.,
-                      'M_CO': 1.,
-                      'F_ZCO': 1.,
-                      'T_ZM': 2.,
-                      'T_ZCO': 3.}
+        parameters = {
+            # wewnetrzne
+            'M_M': 3000.,
+            'c_wym': 2700.,
+            'g_w': 1000.,
+            'c_w': 4200.,
+            'k_w': 250000.,
+            'M_CO': 3000.,
+            # zewnetrzne
+            'F_ZM': 1.,
+            'F_ZCO': .5,
+            'T_ZM': 10.,
+            'T_PCO': 10.}
         return parameters
 
     def get_state(self):
@@ -66,11 +68,11 @@ class Model(object):
         logging.info('New state, T_PM=%f, T_ZCO=%f, took %fs', self.T_PM, self.T_ZCO, sw.time_elapsed)
         return self.T_PM, self.T_ZCO
 
-    def prepare_matrices(self, T_ZM = None, T_ZCO = None):
+    def prepare_matrices(self, T_ZM=None, T_PCO=None):
         if T_ZM is None:
             T_ZM = self.params['T_ZM']
-        if T_ZCO is None:
-            T_ZCO = self.params['T_ZCO']
+        if T_PCO is None:
+            T_PCO = self.params['T_PCO']
         c_w = self.params['c_w']
         F_ZM = self.params['F_ZM']
         c_wym = self.params['c_wym']
@@ -90,7 +92,7 @@ class Model(object):
 
         A = (a11, a12, a21, a22)
         B = (b11, 0, 0, b22)
-        U = (T_ZM, T_ZCO)
+        U = (T_ZM, T_PCO)
 
         return A, B, U
 
