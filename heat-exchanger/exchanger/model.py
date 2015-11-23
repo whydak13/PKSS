@@ -31,14 +31,14 @@ class Model(object):
             'k_w': 250000.,
             'M_CO': 3000.,
             # zewnetrzne
-            'F_ZM': 1.,
-            'F_ZCO': .5,
-            'T_ZM': 10.,
-            'T_PCO': 10.}
+            'F_zm': 1.,
+            'F_zco': .5,
+            'T_zm': 10.,
+            'T_pco': 10.}
         return parameters
 
     def get_state(self):
-        return {'T_PM': self.T_PM, 'T_ZCO': self.T_ZCO}
+        return {'T_pm': self.T_PM, 'T_zco': self.T_ZCO}
 
     def update_parameters(self, parameters):
         for k, v in parameters.items():
@@ -70,14 +70,14 @@ class Model(object):
 
     def prepare_matrices(self, T_ZM=None, T_PCO=None):
         if T_ZM is None:
-            T_ZM = self.params['T_ZM']
+            T_ZM = self.params['T_zm']
         if T_PCO is None:
-            T_PCO = self.params['T_PCO']
+            T_PCO = self.params['T_pco']
         c_w = self.params['c_w']
-        F_ZM = self.params['F_ZM']
+        F_ZM = self.params['F_zm']
         c_wym = self.params['c_wym']
         M_CO = self.params['M_CO']
-        F_ZCO = self.params['F_ZCO']
+        F_ZCO = self.params['F_zco']
         M_M = self.params['M_M']
         k_w = self.params['k_w']
         g_w = self.params['g_w']

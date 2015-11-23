@@ -18,7 +18,7 @@ class Communication(object):
         self.role = role if role is not None else "wymiennik"
         self.json_builder = JsonBuilder(self.role)
 
-        self.communication_tries = 20
+        self.communication_tries = 20000
 
         self.time = 1
 
@@ -73,7 +73,7 @@ class Communication(object):
 
     def __cycle0(self):
         # self.time += 1
-        self.model.tick(self.time)
+        self.model.tick(self.time * 60)
         self.__send_data()
         self.__receive_data()
         logging.info("Tick complete")

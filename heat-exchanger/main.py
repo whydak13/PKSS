@@ -1,7 +1,6 @@
 import logging
 
 from exchanger import model, communication
-from time import sleep
 
 logging_level = logging.DEBUG
 
@@ -12,7 +11,7 @@ def init_logger():
 
 
 def main():
-    host = '192.168.1.101'
+    host = '192.168.1.105'
     # host = 'localhost'
     port = 1234
     init_logger()
