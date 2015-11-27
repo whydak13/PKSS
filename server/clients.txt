@@ -4,5 +4,9 @@
 # nazwa_klienta [!|filter1 filter2 ... filter_n]
 # gdzie filter_n oznaczają nazwy pól które oczekuje otrzymać klient
 # ! oznacza brak filtracji
-wymiennik type time temperatura
+wymiennik !
 budynek !
+#gui     !
+#budynek1 !
+#regulator_1 !
+#dostawca !

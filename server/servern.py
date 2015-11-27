@@ -10,6 +10,7 @@ import json
 class Client:
     filters = []
     processed = False
+    initialized = False
 
     def loadClientFromString(self, string):
         self.filters = string.split()
@@ -54,7 +55,7 @@ class ServerManager:
 
     STD_FIELD_SRC = 'src'
 
-    STD_FIELD_TIME = 'time'
+    STD_FIELD_TIME = 'trzy_miliony'
 
     STD_FIELD_LOG_MSG = 'log_msg'
 
@@ -65,6 +66,7 @@ class ServerManager:
     STATE_INIT = 'init'
     STATE_SIMULATION_INIT = 'simulation_init'
     STATE_SIMULATION = 'simulation'
+    STATE_SIMULATION_STOP = 'simulation_stop'
 
     clients = {}
     sockets = {}
@@ -72,7 +74,7 @@ class ServerManager:
     state = STATE_INIT
     globalJSON = {}
     globalTime = 0
-    globalTimeIncrement = 1
+    globalTimeIncrement = 10
 
     def __init__(self, clientsFilename):
         Client.loadClientsFromFile(self.clients, clientsFilename)
@@ -96,17 +98,18 @@ class ServerManager:
     def disconnectClient(self, clientSocket):
         partWarn = "Client [%s:%d], name [%s] disconnected"
         logging.info(partWarn % (clientSocket.getpeername()[0], clientSocket.getpeername()[1], self.sockets[clientSocket]))
-        client = self.clients.get(clientSocket, None)
+        client = self.clients.get(self.sockets[clientSocket], None)
         if client != None:
             client.processed = False
+            client.initialized = False
         clientSocket.close()
         self.sockets.pop(clientSocket, None)
 
     def validateSrc(self, jsonSrc):
         return self.clients.keys().count(jsonSrc) > 0
 
-    def insertTime(self):
-        self.globalJSON[self.STD_FIELD_TIME] = self.globalTime
+    def insertTimeIncrement(self):
+        self.globalJSON[self.STD_FIELD_TIME] = self.globalTimeIncrement
         self.globalTime += self.globalTimeIncrement
 
     def insertType(self, type):
@@ -115,7 +118,24 @@ class ServerManager:
     def allClientsConnected(self):
         return set(self.clients.keys()) == set(self.sockets.values())
 
+    def broadcast_init(self):
+        temp_json = {}
+        temp_json[self.STD_FIELD_TYPE] = self.TYPE_INIT
+        temp_json[self.STD_FIELD_TIME] = self.globalTimeIncrement
+        serialized = json.dumps(temp_json)
+        for clientSocket in self.sockets:
+            client = self.clients[self.sockets[clientSocket]]
+            if not client.initialized:
+                msg = "Sending init Json to %s [%s:%d]: %s"
+                msg = msg % (self.sockets[clientSocket], clientSocket.getpeername()[0], clientSocket.getpeername()[1], str(temp_json))
+                logging.debug(msg)
+                clientSocket.setblocking(True)
+                clientSocket.sendall(serialized)
+                clientSocket.setblocking(False)
+                client.initialized = True
+        
     def broadcast(self):
+        logging.debug("Sending global JSON to all (%d) clients: %s" % (len(self.sockets), str(self.globalJSON)) )
         for clientSocket in self.sockets:
             serialized = json.dumps(self.globalJSON)
             clientSocket.setblocking(True)
@@ -123,6 +143,7 @@ class ServerManager:
             clientSocket.setblocking(False)
 
     def broadcastFiltered(self):
+        logging.debug("Sending global JSON to all (%d) clients: %s" % (len(self.sockets), str(self.globalJSON)) )
         for clientSocket in self.sockets:
             client = self.clients[self.sockets[clientSocket]]
             filtered = client.filterJSON(self.sockets[clientSocket], self.globalJSON)
@@ -160,7 +181,7 @@ class ServerManager:
             self.disconnectClient(clientSocket)
 
     def processInit(self, clientSocket, jsonSrc, jsonDict):
-        if self.state == self.STATE_INIT:
+        if self.state == self.STATE_INIT or self.state == self.STATE_SIMULATION_STOP:
             if self.sockets.values().count(jsonSrc) == 0:
                 if self.sockets[clientSocket] == '':
                     self.sockets[clientSocket] = jsonSrc
@@ -185,7 +206,7 @@ class ServerManager:
             logging.info('Log from [%s]: [%s]' % (jsonSrc, str(logMsg)))
 
     def processData(self, clientSocket, jsonSrc, jsonDict):
-        if self.state == self.STATE_SIMULATION:
+        if self.state == self.STATE_SIMULATION or self.state == self.STATE_SIMULATION_STOP:
             commonJSON = set(jsonDict.keys()).intersection(self.globalJSON.keys())
             if commonJSON:
                 partWarn = 'Client [%s:%d], name [%s] overrides part of already received data: [%s]'
@@ -204,44 +225,48 @@ class ServerManager:
             self.sockets[clientSocket] = ''
             logging.info("Client [%s:%d] connected" % (clientSocket.getpeername()[0], clientSocket.getpeername()[1]))
 
-        socketsRead,_,_ = select.select(self.sockets.keys(),[],[], 1.0)
-        for clientSocket in socketsRead:
-            data = clientSocket.recv(self.RECEIVE_BUFFER)
-            if data != '':
-                try:
-                    clientJSON = json.loads(data)
-                    jsonType = clientJSON.pop(self.STD_FIELD_TYPE, None)
-                    if jsonType != None:
-                        jsonSrc = clientJSON.pop(self.STD_FIELD_SRC, None)
-                        if jsonSrc != None:
-                            self.processJSON(clientSocket, str(jsonType), str(jsonSrc), clientJSON)
+        if self.sockets.keys():
+            socketsRead,_,_ = select.select(self.sockets.keys(),[],[], 1.0)
+            for clientSocket in socketsRead:
+                data = clientSocket.recv(self.RECEIVE_BUFFER)
+                if data != '':
+                    msg = "Received data from client %s [%s:%d]: %s"
+                    msg = msg % (self.sockets[clientSocket], clientSocket.getpeername()[0], clientSocket.getpeername()[1], str(data))
+                    logging.debug(msg)
+                    try:
+                        clientJSON = json.loads(data)
+                        jsonType = clientJSON.pop(self.STD_FIELD_TYPE, None)
+                        if jsonType != None:
+                            jsonSrc = clientJSON.pop(self.STD_FIELD_SRC, None)
+                            if jsonSrc != None:
+                                self.processJSON(clientSocket, str(jsonType), str(jsonSrc), clientJSON)
+                            else:
+                                partWarn = 'JSON received from [%s:%d] has no \'src\' field'
+                                logging.warning(partWarn % (clientSocket.getpeername()[0], clientSocket.getpeername()[1]))
                         else:
-                            partWarn = 'JSON received from [%s:%d] has no \'src\' field'
+                            partWarn = 'JSON received from [%s:%d] has no \'type\' field'
                             logging.warning(partWarn % (clientSocket.getpeername()[0], clientSocket.getpeername()[1]))
-                    else:
-                        partWarn = 'JSON received from [%s:%d] has no \'type\' field'
+                    except ValueError:
+                        partWarn = 'String received from [%s:%d] is not JSON'
                         logging.warning(partWarn % (clientSocket.getpeername()[0], clientSocket.getpeername()[1]))
-                except ValueError:
-                    partWarn = 'String received from [%s:%d] is not JSON'
-                    logging.warning(partWarn % (clientSocket.getpeername()[0], clientSocket.getpeername()[1]))
-                    logging.warning('Received : [%s]' % str(data).strip('\n'))
-            else:
-                self.disconnectClient(clientSocket)
+                        logging.warning('Received : [%s]' % str(data).strip('\n'))
+                else:
+                    self.disconnectClient(clientSocket)
 
         # State switcher
         if self.state == self.STATE_INIT:
             if self.allClientsConnected():
                 self.switchState(self.STATE_SIMULATION_INIT)
                 self.globalJSON.clear()
-                self.insertTime()
+                self.insertTimeIncrement()
                 self.insertType(self.TYPE_INIT)
-                self.broadcast()
+                self.broadcast_init()
         if self.state == self.STATE_SIMULATION:
             if not self.allClientsConnected():
-                self.switchState(self.STATE_INIT)
+                self.switchState(self.STATE_SIMULATION_STOP)
             else:
                 if self.clientsProcessedCount() == len(self.clients):
-                    self.insertTime()
+                    self.insertTimeIncrement()
                     self.insertType(self.TYPE_DATA)
                     self.broadcastFiltered()
                     self.switchState(self.STATE_SIMULATION_INIT)
@@ -252,6 +277,12 @@ class ServerManager:
                 self.clearClientsProcessed()
                 self.globalJSON.clear()
                 self.switchState(self.STATE_SIMULATION)
+        if self.state == self.STATE_SIMULATION_STOP:
+            if not self.allClientsConnected():
+                self.switchState(self.STATE_SIMULATION_STOP)
+            else:
+                self.switchState(self.STATE_SIMULATION)
+                self.broadcast_init()
 
 # Main
 if __name__ == "__main__":
