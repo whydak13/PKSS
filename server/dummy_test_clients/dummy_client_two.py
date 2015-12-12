@@ -13,7 +13,7 @@ ROLE = 'budynek'
 CISNIENIE = 'cisnienie'
 
 if __name__ == '__main__':
-    host = "localhost"
+    host = "192.168.1.103"
     port = 1234
     RECV_BUFFER = 4096
 

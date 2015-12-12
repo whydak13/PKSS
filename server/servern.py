@@ -60,7 +60,7 @@ class ServerManager:
     STD_FIELD_LOG_MSG = 'log_msg'
 
     RECEIVE_BUFFER = 4096
-    HOST = 'localhost'
+    HOST = '192.168.45.67'
     PORT = 1234
 
     STATE_INIT = 'init'
@@ -109,6 +109,9 @@ class ServerManager:
         return self.clients.keys().count(jsonSrc) > 0
 
     def insertTimeIncrement(self):
+        gui_time = self.globalJSON.get(self.STD_FIELD_TIME, None)
+        if gui_time != None:
+            self.globalTimeIncrement = gui_time
         self.globalJSON[self.STD_FIELD_TIME] = self.globalTimeIncrement
         self.globalTime += self.globalTimeIncrement
 
@@ -153,8 +156,8 @@ class ServerManager:
             clientSocket.setblocking(False)
 
     def switchState(self, state):
-        partDebug = 'Switching state from [%s] to [%s]'
-        logging.debug(partDebug % (self.state, state))
+        partDebug = 'Switching state from [%s] to [%s]. Client list: %s'
+        logging.debug(partDebug % (self.state, state, str(self.sockets.values())))
         self.state = state
         
     def processJSON(self, clientSocket, jsonType, jsonSrc, jsonDict):
@@ -234,7 +237,7 @@ class ServerManager:
                     msg = msg % (self.sockets[clientSocket], clientSocket.getpeername()[0], clientSocket.getpeername()[1], str(data))
                     logging.debug(msg)
                     try:
-                        clientJSON = json.loads(data)
+                        clientJSON = json.loads(str(data))
                         jsonType = clientJSON.pop(self.STD_FIELD_TYPE, None)
                         if jsonType != None:
                             jsonSrc = clientJSON.pop(self.STD_FIELD_SRC, None)
@@ -287,7 +290,7 @@ class ServerManager:
 # Main
 if __name__ == "__main__":
     logging.basicConfig(format = '%(levelname)s %(filename)s: %(message)s', level = logging.DEBUG)
-    communicationManager = ServerManager('clients.txt')
+    communicationManager = ServerManager('clients_test.txt')
 
     while True:
         communicationManager.process()
