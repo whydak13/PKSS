@@ -13,7 +13,7 @@ ROLE = sys.argv[1]
 TEMPERATURA = 'temperatura'
 
 if __name__ == '__main__':
-    host = "192.168.1.101"
+    host = "192.168.45.67"
     port = 1234
     RECV_BUFFER = 4096
 

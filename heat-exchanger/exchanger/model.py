@@ -16,8 +16,8 @@ class Model(object):
         self.current_time = 0
         logging.info("Using tick time %ss.", self.tick_time)
 
-        self.T_PM = 0.
-        self.T_ZCO = 0.
+        self.T_PM = 10.
+        self.T_ZCO = 10.
         logging.info("Setting initial values for T_PM=%f, T_ZCO=%f", self.T_PM, self.T_ZCO)
 
     @staticmethod
@@ -39,6 +39,9 @@ class Model(object):
 
     def get_state(self):
         return {'T_pm': self.T_PM, 'T_zco': self.T_ZCO}
+
+        # @debug:
+        # return {'T_zm': self.params['T_zm'], 'T_zco': self.params['T_zm']}
 
     def update_parameters(self, parameters):
         for k, v in parameters.items():
@@ -73,11 +76,12 @@ class Model(object):
             T_ZM = self.params['T_zm']
         if T_PCO is None:
             T_PCO = self.params['T_pco']
+        # logging.debug(self.params)
         c_w = self.params['c_w']
-        F_ZM = self.params['F_zm']
+        F_ZM = self.params['F_zm'] / 3.6  # t/h -> kg/s
         c_wym = self.params['c_wym']
         M_CO = self.params['M_CO']
-        F_ZCO = self.params['F_zco']
+        F_ZCO = self.params['F_zco'] / 3.6  # t/h -> kg/s
         M_M = self.params['M_M']
         k_w = self.params['k_w']
         g_w = self.params['g_w']

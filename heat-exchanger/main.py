@@ -2,6 +2,10 @@ import logging
 
 from exchanger import model, communication
 
+'''
+todo
+strumienie - tony na godzinę -> przekształcam po swojej stronie
+'''
 logging_level = logging.DEBUG
 
 def init_logger():
@@ -11,12 +15,12 @@ def init_logger():
 
 
 def main():
-    host = '192.168.1.105'
+    host = '192.168.45.67'
     # host = 'localhost'
     port = 1234
     init_logger()
     exchanger = model.Model()
-    exchanger.tick(21)
+
     communicator = communication.Communication()
     communicator.set_model(exchanger)
     communicator.prepare_connection(host, port)
